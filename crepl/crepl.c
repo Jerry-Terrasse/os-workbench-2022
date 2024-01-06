@@ -20,8 +20,8 @@ int exec(char *cmd)
 }
 
 void* add_function(char *code) {
-  char code_file[]  = "/tmp/crepl.XXXXXX";
-  int res = mkstemp(code_file);
+  char code_file[]  = "/tmp/crepl.XXXXXX.c";
+  int res = mkstemps(code_file, 2);
   if(res == -1) {
     return NULL;
   }
