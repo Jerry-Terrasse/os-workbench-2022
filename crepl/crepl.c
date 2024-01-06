@@ -33,13 +33,15 @@ void* add_function(char *code) {
   fprintf(fp, "%s", code);
   fclose(fp);
 
+  char so_file[] = "/tmp/crepl.XXXXXX.so";
   char cmd[100];
-  sprintf(cmd, "gcc -shared -fPIC %s -o %s.so", code_file, code_file);
+  strncpy(so_file + 11, code_file + 11, 6);
+  sprintf(cmd, "gcc -shared -fPIC %s -o %s", code_file, so_file);
   if(exec(cmd) != 0) {
     return NULL;
   }
 
-  void *handle = dlopen(code_file, RTLD_NOW | RTLD_GLOBAL);
+  void *handle = dlopen(so_file, RTLD_NOW | RTLD_GLOBAL);
   if(handle == NULL) {
     return NULL;
   }
