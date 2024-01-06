@@ -59,7 +59,6 @@ int eval(char *code, int *result) {
   if(handle == NULL) {
     return -1;
   }
-
   int (*func_ptr)() = dlsym(handle, func);
   if(func_ptr == NULL) {
     return -1;
@@ -79,20 +78,16 @@ int main(int argc, char *argv[]) {
     }
     int len = strlen(line);
     line[--len] = '\0'; // remove '\n'
-    // printf("Got %zu chars.\n", strlen(line)); // ??
 
     char begin[5];
     strncpy(begin, line, 4); begin[4] = '\0';
     if (strcmp(begin, "int ") == 0) { // is a function
-      printf("[Function]\n");
-
       if(add_function(line) != NULL) {
         printf("Added: %s\n", line);
       } else {
         printf("Error\n");
       }
     } else {
-      printf("[Expression]\n");
 
       int result = -1;
       if(eval(line, &result) == 0) {
