@@ -36,7 +36,7 @@ void* add_function(char *code) {
   char so_file[] = "/tmp/crepl.XXXXXX.so";
   char cmd[100];
   strncpy(so_file + 11, code_file + 11, 6);
-  sprintf(cmd, "gcc -shared -fPIC %s -o %s", code_file, so_file);
+  sprintf(cmd, "gcc -shared -fPIC %s -o %s -Wno-implicit-function-declaration", code_file, so_file);
   if(exec(cmd) != 0) {
     return NULL;
   }
