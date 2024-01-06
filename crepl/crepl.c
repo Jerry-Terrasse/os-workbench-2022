@@ -77,7 +77,9 @@ int main(int argc, char *argv[]) {
     if (!fgets(line, sizeof(line), stdin)) {
       break;
     }
-    printf("Got %zu chars.\n", strlen(line)); // ??
+    int len = strlen(line);
+    line[--len] = '\0'; // remove '\n'
+    // printf("Got %zu chars.\n", strlen(line)); // ??
 
     char begin[5];
     strncpy(begin, line, 4); begin[4] = '\0';
